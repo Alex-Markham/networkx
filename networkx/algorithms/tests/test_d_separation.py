@@ -206,6 +206,24 @@ def test_invalid_nodes_raise_error(asia_graph):
         nx.find_minimal_d_separator(asia_graph, 0, 1)
 
 
+def test_nondisjoint_node_sets_raise_error(collider_graph):
+    """
+    Test that error is raised when node sets aren't disjoint.
+    """
+    with pytest.raises(nx.NetworkXError):
+        nx.d_separated(collider_graph, 0, 1, 0)
+    with pytest.raises(nx.NetworkXError):
+        nx.d_separated(collider_graph, 0, 0, 1)
+    with pytest.raises(nx.NetworkXError):
+        nx.d_separated(collider_graph, 1, 0, 0)
+    with pytest.raises(nx.NetworkXError):
+        nx.find_minimal_d_separator(collider_graph, 0, 0)
+    with pytest.raises(nx.NetworkXError):
+        nx.find_minimal_d_separator(collider_graph, 0, 1, 0)
+    with pytest.raises(nx.NetworkXError):
+        nx.find_minimal_d_separator(collider_graph, 1, 0, 0)
+
+
 def test_minimal_d_separated(
     large_collider_graph,
     chain_and_fork_graph,
