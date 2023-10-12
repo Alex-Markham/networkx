@@ -286,12 +286,6 @@ def find_minimal_d_separator(G, u, v, i=None, r=None):
         The minimal d-separating set, if at least one d-separating set exists,
         otherwise None.
 
-    Returns
-    -------
-    Z : bool | None
-        The minimal d-separating set, if at least one d-separating set exists,
-        otherwise None.
-
     Raises
     ------
     NetworkXError
