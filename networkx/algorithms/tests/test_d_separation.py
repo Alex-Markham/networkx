@@ -258,6 +258,9 @@ def test_minimal_d_separated(
     assert nx.minimal_d_separated(chain_and_fork_graph, "A", "C", Zmin)
     assert Zmin == {"B"}
 
+    Znotmin = Zmin.union({"D"})
+    assert not nx.is_minimal_d_separator(G, "A", "C", Znotmin)
+
     # Case 3:
     # create a graph A -> B
 
@@ -275,3 +278,26 @@ def test_minimal_d_separated(
     # minimal (but invalid) separating set
     assert not nx.d_separated(large_no_separating_set_graph, {"A"}, {"B"}, {"C"})
     assert nx.find_minimal_d_separator(large_no_separating_set_graph, "A", "B") is None
+
+
+def test_minimal_d_separator_checks_dsep():
+    """Test that is_minimal_d_separator checks for d-separation as well."""
+    g = nx.DiGraph()
+    g.add_edges_from(
+        [
+            ("A", "B"),
+            ("A", "E"),
+            ("B", "C"),
+            ("B", "D"),
+            ("D", "C"),
+            ("D", "F"),
+            ("E", "D"),
+            ("E", "F"),
+        ]
+    )
+
+    assert not nx.d_separated(g, {"C"}, {"F"}, {"D"})
+
+    # since {'D'} and {} are not d-separators, we return false
+    assert not nx.is_minimal_d_separator(g, "C", "F", {"D"})
+    assert not nx.is_minimal_d_separator(g, "C", "F", {})

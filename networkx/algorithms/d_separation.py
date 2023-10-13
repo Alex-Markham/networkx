@@ -373,6 +373,10 @@ def minimal_d_separated(G, u, v, z, i=None, r=None):
     verifies that a set is "minimal", meaning there is no smaller
     d-separating set between the two nodes.
 
+    Note: This function checks whether `z` is a d-separator AND is minimal.
+    One can use the function `d_separated` to only check if `z` is a d-separator.
+    See examples below.
+
     Parameters
     ----------
     G : nx.DiGraph
@@ -392,7 +396,20 @@ def minimal_d_separated(G, u, v, z, i=None, r=None):
     Returns
     -------
     bool
-        Whether or not the `z` separating set is minimal.
+        Whether or not the set `z` is a d-separator and is also minimal.
+
+    Examples
+    --------
+    >>> G = nx.path_graph([0, 1, 2, 3], create_using=nx.DiGraph)
+    >>> G.add_node(4)
+    >>> nx.is_minimal_d_separator(G, 0, 2, {1})
+    True
+    >>> # since {1} is the minimal d-separator, {1, 3, 4} is not minimal
+    >>> nx.is_minimal_d_separator(G, 0, 2, {1, 3, 4})
+    False
+    >>> # alternatively, if we only want to check that {1, 3, 4} is a d-separator
+    >>> nx.d_separated(G, {0}, {4}, {1, 3, 4})
+    True
 
     Raises
     ------
@@ -435,7 +452,6 @@ def minimal_d_separated(G, u, v, z, i=None, r=None):
         z = {z}
     if z - G.nodes:
         raise nx.NodeNotFound(f"The node {z} is not found in G.")
-
     if i is None:
         i = set()
     if r is None:
