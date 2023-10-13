@@ -265,7 +265,6 @@ def find_minimal_d_separator(G, u, v, i=None, r=None):
 
     TODO: need to explain the difference between strongly minimal vs I-minimal
 
-
     Parameters
     ----------
     G : graph
@@ -284,6 +283,12 @@ def find_minimal_d_separator(G, u, v, i=None, r=None):
     Returns
     -------
     Z : set | None
+        The minimal d-separating set, if at least one d-separating set exists,
+        otherwise None.
+
+    Returns
+    -------
+    Z : bool | None
         The minimal d-separating set, if at least one d-separating set exists,
         otherwise None.
 
