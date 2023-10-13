@@ -394,7 +394,7 @@ def minimal_d_separated(G, u, v, z, i=None, r=None):
         Set of nodes which are always included in the found separating set,
         default is None, which is later set to empty set.
     r : set
-        Largest set of nodes which may be included in the found separating set,
+        Largest set of nodes which may be included in the found separating set.
 
     Returns
     -------
@@ -455,6 +455,7 @@ def minimal_d_separated(G, u, v, z, i=None, r=None):
         z = {z}
     if z - G.nodes:
         raise nx.NodeNotFound(f"The node {z} is not found in G.")
+
     if i is None:
         i = set()
     if r is None:
